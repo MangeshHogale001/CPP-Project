@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition Assessment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            padding: 50px 0;
+        }
+        .form-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            width: 600px;
+            padding: 40px;
+        }
+        h1 {
+            text-align: center;
+            color: #764ba2;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .checkbox-group {
+            display: flex;
+            gap: 15px;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .submit-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Nutrition Assessment</h1>
+        <form id="nutrition-form">
+            <div class="form-group">
+                <label>Age</label>
+                <input type="number" id="age" required min="18" max="100">
+            </div>
+            <div class="form-group">
+                <label>Weight (kg)</label>
+                <input type="number" id="weight" required min="30" max="300">
+            </div>
+            <div class="form-group">
+                <label>Height (cm)</label>
+                <input type="number" id="height" required min="100" max="250">
+            </div>
+            <div class="form-group">
+                <label>Gender</label>
+                <select id="gender" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Activity Level</label>
+                <select id="activity-level" required>
+                    <option value="1">Sedentary</option>
+                    <option value="2">Lightly Active</option>
+                    <option value="3">Moderately Active</option>
+                    <option value="4">Very Active</option>
+                    <option value="5">Extremely Active</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Diet Type</label>
+                <select id="diet-type" required>
+                    <option value="Omnivore">Omnivore</option>
+                    <option value="Vegetarian">Vegetarian</option>
+                    <option value="Vegan">Vegan</option>
+                    <option value="Pescatarian">Pescatarian</option>
+                    <option value="Keto">Keto</option>
+                    <option value="Paleo">Paleo</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Health Conditions</label>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" name="conditions" value="diabetes"> Diabetes
+                    </label>
+                    <label>
+                        <input type="checkbox" name="conditions" value="hypertension"> Hypertension
+                    </label>
+                    <label>
+                        <input type="checkbox" name="conditions" value="anemia"> Anemia
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="submit-btn">Get Nutrition Recommendations</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('nutrition-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = {
+                age: document.getElementById('age').value,
+                weight: document.getElementById('weight').value,
+                height: document.getElementById('height').value,
+                gender: document.getElementById('gender').value,
+                activityLevel: document.getElementById('activity-level').value,
+                dietType: document.getElementById('diet-type').value,
+                conditions: Array.from(document.querySelectorAll('input[name="conditions"]:checked'))
+                    .map(el => el.value)
+            };
+
+            // Send data to backend
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Redirect to results page with data
+                localStorage.setItem('nutritionResults', JSON.stringify(data));
+                window.location.href = 'results.html';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to get recommendations');
+            });
+        });
+    </script>
+</body>
+</html>

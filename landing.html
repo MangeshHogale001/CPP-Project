@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition Advisor - Personalized Nutrition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        .nav-links li {
+            margin-left: 20px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #e0e0e0;
+        }
+        .hero {
+            display: flex;
+            align-items: center;
+            padding: 50px;
+            background: #f4f4f4;
+        }
+        .hero-content {
+            flex: 1;
+        }
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+        .hero-image img {
+            max-width: 80%;
+            border-radius: 10px;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+        .features {
+            display: flex;
+            justify-content: space-around;
+            padding: 50px;
+            background: white;
+        }
+        .feature {
+            text-align: center;
+            max-width: 300px;
+        }
+        .feature img {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Nutrition Advisor</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="nutrition-form.html" class="cta-button">Get Started</a></li>
+            <li><a href="#" id="logout-btn">Logout</a></li>
+
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Personalized Nutrition, Just for You</h1>
+            <p>Discover your unique nutritional needs with our AI-powered advisor. Get tailored recommendations based on your individual health profile.</p>
+            <a href="nutrition-form.html" class="cta-button">Start Your Nutrition Journey</a>
+        </div>
+        <div class="hero-image">
+            <img src="nutrition-advisor-logo.jpg" alt="Nutrition Analysis">
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="feature">
+            <img src="Personalized-healthcare (1).webp" alt="Personalized">
+            <h3>Personalized Insights</h3>
+            <p>Get nutrition recommendations tailored to your unique body and lifestyle.</p>
+        </div>
+        <div class="feature">
+            <img src="ai driven analysis.jpg" alt="AI Powered">
+            <h3>AI-Driven Analysis</h3>
+            <p>Advanced machine learning algorithms analyze your health profile.</p>
+        </div>
+        <div class="feature">
+            <img src="food recommendations.png" alt="Recommendations">
+            <h3>Food Recommendations</h3>
+            <p>Discover foods that perfectly match your nutritional requirements.</p>
+        </div>
+    </section>
+    <script>
+       document.addEventListener("DOMContentLoaded", function () {
+    if (localStorage.getItem('isLoggedIn') !== 'true') {
+        alert('You must log in first!');
+        window.location.href = 'login.html';
+    }
+});
+      
+    </script>
+    
+
+    <footer>
+        <p>&copy; 2024 Nutrition Advisor. All rights reserved.</p>
+    </footer>
+</body>
+</html>

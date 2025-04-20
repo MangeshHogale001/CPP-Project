@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition Results</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            padding: 60px 20px;
+            color: #333;
+        }
+        .results-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #764ba2;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        h2 {
+            color: #764ba2;
+            margin: 30px 0 15px;
+            font-size: 1.3rem;
+        }
+        .macros-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .macro-box {
+            background: linear-gradient(145deg, #f1f1f1, #ffffff);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .macro-value {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #764ba2;
+            margin: 5px 0;
+        }
+        .macro-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .food-recommendations {
+            background: linear-gradient(145deg, #f8f4ff, #ffffff);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin: 20px 0;
+            border-left: 4px solid #764ba2;
+        }
+        .food-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #764ba2;
+        }
+        .back-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 30px;
+            transition: transform 0.2s;
+            font-weight: 500;
+        }
+        .back-btn:hover {
+            transform: scale(1.02);
+        }
+        .print-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: transparent;
+            color: #764ba2;
+            border: 1px solid #764ba2;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 15px;
+            transition: background 0.3s;
+            font-weight: 500;
+        }
+        .print-btn:hover {
+            background: #f1edff;
+        }
+        @media print {
+            .back-btn, .print-btn {
+                display: none;
+            }
+            body {
+                padding: 0;
+                background: white;
+            }
+            .results-container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="results-container">
+        <h1>Your Nutrition Report</h1>
+        
+        <h2>Daily Nutritional Needs</h2>
+        <div class="macros-grid">
+            <div class="macro-box">
+                <div class="macro-value" id="calories">0</div>
+                <div class="macro-label">Calories (kcal)</div>
+            </div>
+            <div class="macro-box">
+                <div class="macro-value" id="protein">0</div>
+                <div class="macro-label">Protein (g)</div>
+            </div>
+            <div class="macro-box">
+                <div class="macro-value" id="carbs">0</div>
+                <div class="macro-label">Carbohydrates (g)</div>
+            </div>
+            <div class="macro-box">
+                <div class="macro-value" id="fats">0</div>
+                <div class="macro-label">Fats (g)</div>
+            </div>
+        </div>
+        
+        <h2>Food Recommendations</h2>
+        <div class="food-recommendations">
+            <div class="food-title">Personalized Food Plan:</div>
+            <div id="food">Loading recommendations...</div>
+        </div>
+        
+        <button class="print-btn" onclick="window.print()">Print Report</button>
+        <a href="/" class="back-btn">Start New Assessment</a>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const data = JSON.parse(localStorage.getItem("nutritionResults"));
+            if (data) {
+                document.getElementById("calories").textContent = data["Calories"];
+                document.getElementById("protein").textContent = data["Protein (g)"];
+                document.getElementById("carbs").textContent = data["Carbs (g)"];
+                document.getElementById("fats").textContent = data["Fats (g)"];
+                document.getElementById("food").textContent = data["Recommended Food"];
+            } else {
+                alert("No data found. Please fill the form first.");
+                window.location.href = "/";
+            }
+        });
+    </script>
+</body>
+</html>
